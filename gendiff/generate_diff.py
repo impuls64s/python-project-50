@@ -20,10 +20,10 @@ def generate_diff(url1, url2):
     result_str = '''{'''
     for k, v in sorted_tuple.items():
         result_str += f'\n  {k}: {v}'
-    result_str += '\n}'
+    result_str += '\n}\n'
 
     result_finish = (result_str.replace('False', 'false')
                                .replace('True', 'true').replace('=', '  ')
                                .replace('=', ' ').replace("'", '')
                                .replace('-', '- ').replace('+', '+ '))
-    print(result_finish)
+    return result_finish
