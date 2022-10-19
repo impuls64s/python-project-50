@@ -21,3 +21,11 @@ lint:
 
 test-coverage:
 	poetry run pytest --cov=hexlet_python_package --cov-report xml
+
+selfcheck:
+	poetry check
+
+test:
+	poetry run pytest
+
+check: selfcheck test lint
