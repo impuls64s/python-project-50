@@ -25,10 +25,6 @@ jobs:
       - name: Run linter and pytest
         run: |
           make check
-      - name: Install Pytest
-        run: |
-           pip install coverage
-           pip install pytest-cov
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.4
         if: github.ref == 'refs/heads/main'
