@@ -1,4 +1,4 @@
-name: Python CI
+name: Flake8 Pytest CodeCoverage
 
 on:
   - push
