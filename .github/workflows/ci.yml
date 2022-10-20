@@ -26,9 +26,6 @@ jobs:
         run: |
           make check
       - name: Test & publish code coverage
-        run: |
-          pip install coverage
-          pip install pytest-cov
         uses: paambaati/codeclimate-action@v2.7.4
         if: github.ref == 'refs/heads/main'
         env:
