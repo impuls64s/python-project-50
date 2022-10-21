@@ -19,13 +19,13 @@ def parsing(file1, file2):
         result = {
             'json': (json.load(open(file1)),
                      json.load(open(file2)))
-            }
+        }
         return result['json']
     elif format == 'yaml' or format == '.yml':
         result = {
             'yaml': (yaml.safe_load(open(file1)),
                      yaml.safe_load(open(file2)))
-            }
+        }
         return result['yaml']
     else:
         return format
