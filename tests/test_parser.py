@@ -5,7 +5,7 @@ def test_why_format():
     assert why_format('file1.json', 'file2.json') == 'json'
     assert why_format('file1.json', 'file2.yaml') == 'wrong format'
     assert why_format('file1.yml', 'file2.json') == 'wrong format'
-    assert why_format('file1.yml', 'file2.yml') == 'yaml'
+    assert why_format('file1.yml', 'file2.yml') == '.yml'
     assert why_format('file1.yaml', 'file2.yml') == 'yaml'
     assert why_format('file1.yml', 'file2.yaml') == 'yaml'
     assert why_format('file1.yml', 'file2.json') == 'wrong format'
