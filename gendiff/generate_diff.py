@@ -1,9 +1,6 @@
-import json
-
-
 def generate_diff(url1, url2):
-    file1 = json.load(open(url1))
-    file2 = json.load(open(url2))
+    file1 = url1
+    file2 = url2
     result = {}
     for k, v in file1.items():
         if k in file2 and v == file2[k]:
@@ -24,6 +21,6 @@ def generate_diff(url1, url2):
 
     result_finish = (result_str.replace('False', 'false')
                                .replace('True', 'true').replace('=', '  ')
-                               .replace('=', ' ').replace("'", '')
-                               .replace('-', '- ').replace('+', '+ '))
+                               .replace("'", '').replace('-', '- ')
+                               .replace('+', '+ '))
     return result_finish
