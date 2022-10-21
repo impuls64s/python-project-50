@@ -3,25 +3,29 @@ import yaml
 
 
 def why_format(lst1, lst2):
-    if lst1[-4:] == 'json' and lst2[-4:] == 'json':
-        format = 'json'
-    elif ((lst1[-4:] == '.yml' or lst1[-4:] == 'yaml')
-          and (lst2[-4:] == '.yml' or lst2[-4:] == 'yaml')):
-        format = 'yaml'
+    if lst1[-4:] == lst2[-4:]:
+        return lst1[-4:]
+    elif lst1[-4:] == '.yml' and lst2[-4:] == 'yaml':
+        return 'yaml'
+    elif lst1[-4:] == 'yaml' and lst2[-4:] == '.yml':
+        return 'yaml'
     else:
-        format = 'wrong format'
-    return format
+        return 'wrong format'
 
 
 def parsing(file1, file2):
     format = why_format(file1, file2)
     if format == 'json':
-        json1 = json.load(open(file1))
-        json2 = json.load(open(file2))
-        return json1, json2
-    elif format == 'yaml':
-        yaml1 = yaml.safe_load(open(file1))
-        yaml2 = yaml.safe_load(open(file2))
-        return yaml1, yaml2
+        result = {
+            'json': (json.load(open(file1)),
+                     json.load(open(file2)))
+        }
+        return result['json']
+    elif format == 'yaml' or format == '.yml':
+        result = {
+            'yaml': (yaml.safe_load(open(file1)),
+                     yaml.safe_load(open(file2)))
+        }
+        return result['yaml']
     else:
         return format

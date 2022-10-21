@@ -1,13 +1,14 @@
 from gendiff.generate_diff import generate_diff
-import json
 
-put1 = 'tests/fixtures/file1.json'
-put2 = 'tests/fixtures/file2.json'
+
+dict1 = {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow': False}
+dict2 = {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
 
 def test_generate_diff():
-    f = open("tests/fixtures/file_answer.txt", "w")
-    f.write(generate_diff(put1, put2))
+    result = generate_diff(dict1, dict2)
+    f = open("tests/fixtures/func_answer.txt", "w")
+    f.write(result)
     f.close()
-    file_answer = open("tests/fixtures/file_answer.txt", "r").read()
-    answer = open("tests/fixtures/answer.txt", "r").read()
+    file_answer = open("tests/fixtures/true_answer.txt", "r").read()
+    answer = open("tests/fixtures/func_answer.txt", "r").read()
     assert  file_answer == answer
