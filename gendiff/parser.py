@@ -16,16 +16,10 @@ def why_format(lst1, lst2):
 def parsing(file1, file2):
     format = why_format(file1, file2)
     if format == 'json':
-        result = {
-            'json': (json.load(open(file1)),
-                     json.load(open(file2)))
-        }
-        return result['json']
+        result = (json.load(open(file1)), json.load(open(file2)))
+        return result
     elif format == 'yaml' or format == '.yml':
-        result = {
-            'yaml': (yaml.safe_load(open(file1)),
-                     yaml.safe_load(open(file2)))
-        }
-        return result['yaml']
+        result = (yaml.safe_load(open(file1)), yaml.safe_load(open(file2)))
+        return result
     else:
         return format
