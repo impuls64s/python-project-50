@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from gendiff.parser import why_format , parsing
-=======
 from gendiff.parser import why_format, parsing
->>>>>>> 700e474e68ee5ce1ffcfc688827d876b58635546
 
 
 def test_why_format():
