@@ -13,6 +13,8 @@ build:
 publish:
 	poetry publish --dry-run
 
+start: build publish package-re-install
+
 gendiff:
 	poetry run python -m gendiff.scripts.gendiff --help
 

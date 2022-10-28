@@ -2,24 +2,10 @@ import json
 import yaml
 
 
-def why_format(lst1, lst2):
-    if lst1[-4:] == lst2[-4:]:
-        return lst1[-4:]
-    elif lst1[-4:] == '.yml' and lst2[-4:] == 'yaml':
-        return 'yaml'
-    elif lst1[-4:] == 'yaml' and lst2[-4:] == '.yml':
-        return 'yaml'
+def parsing(file):
+    if file[-4:] == 'json':
+        return json.load(open(file))
+    if file[-4:] == 'yaml' or file[-3:] == 'yml':
+        return yaml.safe_load(open(file))
     else:
         return 'wrong format'
-
-
-def parsing(file1, file2):
-    format = why_format(file1, file2)
-    if format == 'json':
-        result = (json.load(open(file1)), json.load(open(file2)))
-        return result
-    elif format == 'yaml' or format == '.yml':
-        result = (yaml.safe_load(open(file1)), yaml.safe_load(open(file2)))
-        return result
-    else:
-        return format
