@@ -3,6 +3,7 @@ from ..generate_diff import generate_diff
 from ..parser import parsing
 from .. stylish import stylish
 
+
 def gendiff():
     desc = "Compares two configuration files and shows a difference."
     parser = argparse.ArgumentParser(description=(desc))
