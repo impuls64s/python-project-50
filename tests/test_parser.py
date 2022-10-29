@@ -1,20 +1,10 @@
-from gendiff.parser import why_format, parsing
-
-
-def test_why_format():
-    assert why_format('file1.json', 'file2.json') == 'json'
-    assert why_format('file1.json', 'file2.yaml') == 'wrong format'
-    assert why_format('file1.yml', 'file2.json') == 'wrong format'
-    assert why_format('file1.yml', 'file2.yml') == '.yml'
-    assert why_format('file1.yaml', 'file2.yml') == 'yaml'
-    assert why_format('file1.yml', 'file2.yaml') == 'yaml'
-    assert why_format('file1.yml', 'file2.json') == 'wrong format'
-    assert why_format('file1.ymll', 'file2.json') == 'wrong format'
+from gendiff.parser import parsing
 
 
 def test_parsing():
-    two_dict = ({'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow': False},
-               {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'})
-    assert parsing('tests/fixtures/json-file1.json', 'tests/fixtures/json-file2.json') == two_dict
-    assert parsing('tests/fixtures/yml-file1.yml', 'tests/fixtures/yml-file2.yml') == two_dict
-    assert parsing('tests/fixtures/json-file1.yyyml', 'tests/fixtures/json-file2.yml') == 'wrong format'
+    result1 = parsing('tests/fixtures/file123.json')
+    assert result1 ==  {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow': False}
+    result2 = parsing('tests/fixtures/file123.yml')
+    assert result2 == {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
+    result3 = parsing('tests/fixtures/file123.yyamll')
+    assert result3 == 'wrong format'
