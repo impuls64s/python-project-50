@@ -44,28 +44,28 @@ def check_value(item1, item2):
         return str(item1)
 
 
-def item_q(item):
-    res = {}
-    for k,v in item.items():
-        if type(v) is dict and k[0] == '?':
-            res[k] = item_q(v)
-        elif type(v) is not dict:
-            res['? ' + k] = v
+def item_question(item):
+    result = {}
+    for key, value in item.items():
+        if type(value) is dict and key[0] == '?':
+            result[key] = item_question(value)
+        elif type(value) is not dict:
+            result['? ' + key] = value
         else:
-            res['? ' + k] = item_q(v)
-    return res
+            result['? ' + key] = item_question(value)
+    return result
 
 
 def finish_dict(dict1, dict2):
     res_lvl1 = {}
     for k,v in dict1.items():
         if k in dict2:
-            res_lvl1['= ' + k] = check_value(dict1[k],dict2[k])#{}
+            res_lvl1['= ' + k] = check_value(dict1[k],dict2[k])
         else:
-            res_lvl1['- ' + k] = item_q(dict1[k])
+            res_lvl1['- ' + k] = item_question(dict1[k])
     for k2,v2 in dict2.items():
         if k2 not in dict1:
-            res_lvl1['+ ' + k2] = item_q(v2)
+            res_lvl1['+ ' + k2] = item_question(v2)
     return res_lvl1
 
 
