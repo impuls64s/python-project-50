@@ -44,27 +44,15 @@ def check_value(item1, item2):
         return str(item1)
 
 
-def item_minus(item):
+def item_q(item):
     res = {}
     for k,v in item.items():
         if type(v) is dict and k[0] == '?':
-            res[k] = item_minus(v)
-        elif type(v) is not dict:
-            res["? " + k] = v
-        else:
-            res['? ' + k] = item_minus(v)
-    return res
-
-
-def item_plus(item):
-    res = {}
-    for k,v in item.items():
-        if type(v) is dict and k[0] == '?':
-            res[k] = item_plus(v)
+            res[k] = item_q(v)
         elif type(v) is not dict:
             res['? ' + k] = v
         else:
-            res['? ' + k] = item_plus(v)
+            res['? ' + k] = item_q(v)
     return res
 
 
@@ -74,10 +62,10 @@ def finish_dict(dict1, dict2):
         if k in dict2:
             res_lvl1['= ' + k] = check_value(dict1[k],dict2[k])#{}
         else:
-            res_lvl1['- ' + k] = item_minus(dict1[k])
+            res_lvl1['- ' + k] = item_q(dict1[k])
     for k2,v2 in dict2.items():
         if k2 not in dict1:
-            res_lvl1['+ ' + k2] = item_plus(v2)
+            res_lvl1['+ ' + k2] = item_q(v2)
     return res_lvl1
 
 

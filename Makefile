@@ -32,3 +32,6 @@ selfcheck:
 
 
 check: selfcheck test lint
+
+start-git:
+	git status git add . git commit -m 'fix' git push
