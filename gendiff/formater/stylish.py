@@ -1,15 +1,14 @@
 def formater(item):
     result = {}
     if type(item) is dict:
-        for k, v in item.items():
+        result_sort = dict(sorted(item.items(),key=lambda x: x[0][2:]))
+        for k, v in result_sort.items():
             if type(v) is not dict:
                 result[k] = v
-                result = dict(sorted(result.items(), key=lambda x: x[0][2:]))
             elif type(v) is dict:
-                result[k] = dict(sorted(v.items(), key=lambda x: x[0][2:]))
-                formater(v)
+                result[k] = formater(v)
     else:
-        return item
+        return item            
     return result
 
 
