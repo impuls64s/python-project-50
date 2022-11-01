@@ -6,6 +6,7 @@ from ..parser import parsing
 from ..stylish import stylish
 from ..plain import plain
 from ..args_gendiff import arguments
+from ..json import json_f
 
 
 def main():
@@ -20,6 +21,10 @@ def main():
         result_from_plain = data_from_plain(dict1, dict2)
         res_plain = plain(result_from_plain)
         print(res_plain)
+    if format_name == 'json':
+        result_from_json = data_from_stylish(dict1, dict2)
+        res_json = json_f(result_from_json)
+        print(res_json)
 
 
 if __name__ == '__main__':
