@@ -8,16 +8,16 @@ from .parser import parsing
 
 def generate_diff(file_path1, file_path2, format_name='stylish'):
     dict1 = parsing(file_path1)
-    dict2 = parsing(file_path1)
+    dict2 = parsing(file_path2)
     if format_name == 'stylish':
         result_from_stylish = data_from_stylish(dict1, dict2)
         res_stylish = stylish(result_from_stylish)
         return res_stylish
-    if format_name == 'plain':
+    elif format_name == 'plain':
         result_from_plain = data_from_plain(dict1, dict2)
         res_plain = plain(result_from_plain)
         return res_plain
-    if format_name == 'json':
+    elif format_name == 'json':
         result_from_json = data_from_stylish(dict1, dict2)
         res_json = json_f(result_from_json)
         return res_json
