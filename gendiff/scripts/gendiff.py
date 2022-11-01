@@ -1,27 +1,25 @@
-import argparse
-from ..generate_diff import generate_diff
+#!/usr/bin/env python
+
+from ..gendiff_from_stylish import data_from_stylish
+from ..gendiff_from_plain import data_from_plain
 from ..parser import parsing
-from .. stylish import stylish
-
-
-def gendiff():
-    desc = "Compares two configuration files and shows a difference."
-    parser = argparse.ArgumentParser(description=(desc))
-    parser.add_argument("first_file")
-    parser.add_argument("second_file")
-    parser.add_argument('-f FORMAT', '--format FORMAT',
-                        help='set format of output', action="store_true")
-    args = parser.parse_args()
-    args1, args2 = args.first_file, args.second_file
-    dict1 = parsing(args1)
-    dict2 = parsing(args2)
-    res_not_stylish = generate_diff(dict1, dict2)
-    res_stylish = stylish(res_not_stylish)
-    print(res_stylish)
+from ..stylish import stylish
+from ..plain import plain
+from ..args_gendiff import arguments
 
 
 def main():
-    gendiff()
+    args1, args2, format_name = arguments()
+    dict1 = parsing(args1)
+    dict2 = parsing(args2)
+    if format_name == 'stylish':
+        result_from_stylish = data_from_stylish(dict1, dict2)
+        res_stylish = stylish(result_from_stylish)
+        print(res_stylish)
+    if format_name == 'plain':
+        result_from_plain = data_from_plain(dict1, dict2)
+        res_plain = plain(result_from_plain)
+        print(res_plain)
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ def finish_dict(dict1, dict2):
     return res_lvl1
 
 
-def generate_diff(text1, text2):
+def data_from_stylish(text1, text2):
     for k, v in text1.items():
         if type(k) is not dict and type(v) is not dict:
             return check_value(text1, text2)

@@ -5,16 +5,16 @@ text = {'= common': {'= setting1': 'Value 1', '+ follow': False, '+ setting4': '
 text2 = {'= host': 'hexlet.io', '+ verbose': True, '- timeout': 50, '+ timeout': 20, '- proxy': '123.234.53.22', '- follow': False}
 
 def test_stylish():
-    f = open("tests/fixtures/my_answer.txt", "w")
+    f = open("tests/fixtures/my_answer_stylish.txt", "w")
     f.write(stylish(text))
     f.close()
-    file_answer = open("tests/fixtures/hexlet_answer.txt", "r").read()
-    answer = open("tests/fixtures/my_answer.txt", "r").read()
+    file_answer = open("tests/fixtures/hexlet_answer_stylish.txt", "r").read()
+    answer = open("tests/fixtures/my_answer_stylish.txt", "r").read()
     assert answer == file_answer
 
-    f = open("tests/fixtures/my_answer2.txt", "w")
+    f = open("tests/fixtures/my_answer2_stylish.txt", "w")
     f.write(stylish(text2))
     f.close()
-    file_answer2 = open("tests/fixtures/hexlet_answer2.txt", "r").read()
-    answer2 = open("tests/fixtures/my_answer2.txt", "r").read()
+    file_answer2 = open("tests/fixtures/hexlet_answer2_stylish.txt", "r").read()
+    answer2 = open("tests/fixtures/my_answer2_stylish.txt", "r").read()
     assert answer2 == file_answer2
