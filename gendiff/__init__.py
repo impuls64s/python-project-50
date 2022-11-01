@@ -1,3 +1,5 @@
-# -*- coding:utf-8 -*-
+"""Main module."""
 
-"""Script examples."""
+from gendiff.generator import generate_diff
+
+__all__ = ["generate_diff"]
