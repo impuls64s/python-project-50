@@ -3,6 +3,7 @@ from ..gendiff import generate_diff
 from ..args_gendiff import arguments
 from ..parser import parsing
 
+
 def main():
     args1, args2, format_name = arguments()
     file_path1 = parsing(args1)

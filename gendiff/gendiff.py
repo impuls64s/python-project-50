@@ -5,7 +5,6 @@ from .formater.plain import plain
 from .formater.json import json_f
 
 
-
 def generate_diff(dict1, dict2, format_name):
     if format_name == 'stylish':
         result_from_stylish = data_from_stylish(dict1, dict2)
