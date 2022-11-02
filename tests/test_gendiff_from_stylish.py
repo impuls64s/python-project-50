@@ -1,4 +1,3 @@
-from gendiff.parser import parsing
 from gendiff.gendiff_from_stylish import data_from_stylish
 
 
@@ -9,6 +8,7 @@ file3 = {'= common': {'= setting1': 'Value 1', '- setting2': 200, '- setting3': 
 file4 = {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow': False}
 file5 = {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
 file6 = {'= host': 'hexlet.io', '+ verbose': True, '- timeout': 50, '+ timeout': 20, '- proxy': '123.234.53.22', '- follow': False}
+
 
 def test_data_from_stylish():
     var1 = data_from_stylish(file1, file2)

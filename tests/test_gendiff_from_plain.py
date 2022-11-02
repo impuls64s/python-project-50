@@ -8,6 +8,7 @@ file4 = {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow':
 file5 = {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
 file_a45 = {'= host': 'hexlet.io', '+ verbose': True, '! timeout': [50, 20], '- proxy': '123.234.53.22', '- follow': False}
 
+
 def test_data_from_plain():
     var1 = data_from_plain(file1, file2)
     assert var1 == file_a12
