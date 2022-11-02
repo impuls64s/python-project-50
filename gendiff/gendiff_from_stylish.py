@@ -1,78 +1,67 @@
-def check_dict1(dict1, dict2):
-    result = {}
-    for k1, v1 in dict1.items():
-        if k1 in dict2 and v1 == dict2[k1]:
-            result['= ' + k1] = v1
-        elif k1 in dict2 and v1 != dict2[k1] and type(v1) is dict:
-            for kd, vd in v1.items():
-                result['- ' + k1] = {'? ' + kd: vd}
-                result['+ ' + k1] = dict2[k1]
-        elif k1 in dict2 and v1 != dict2[k1] and type(v1) is not dict:
-            result['- ' + k1] = v1
-            result['+ ' + k1] = dict2[k1]
-        else:
-            result['- ' + k1] = v1
-    return result
-
-
-def check_dict2(dict1, dict2):
-    result = {}
-    for k, v in dict2.items():
-        if k not in dict1 and type(v) is dict:
-            for kd, vd in v.items():
-                result['+ ' + k] = {'? ' + kd: vd + ''}
-        elif k not in dict1:
-            result['+ ' + k] = v
-    return result
-
-
-def check_value(item1, item2):
-    value = {}
-    if type(item1) is dict:
-        for k1, v1 in item1.items():
-            if type(v1) is not dict:
-                value.update(check_dict1({k1: v1}, item2))
-                value.update(check_dict2(item1, item2))
-            elif type(v1) is dict and type(item2[k1]) is not dict:
-                for kd, vd in v1.items():
-                    value['- ' + k1] = {'? ' + kd: vd}
-                    value['+ ' + k1] = item2[k1]
-            elif type(v1) is dict and k1 in item2:
-                value['= ' + k1] = check_value(v1, item2[k1])
-        return value
+def children(string1, string2):
+    if isinstance(string1, dict) and isinstance(string2, dict):
+        return True
+    elif type(string1) == type(string2):
+        return False
     else:
-        return str(item1)
+        return False
 
 
-def item_question(item):
+def check_value(string):
+    if isinstance(string, dict):
+        for k, v in string.items():
+            return {'= ' + k: v}
+    else:
+        return string
+
+
+def diff_equals(ikey1, ikey2):
+    result = {}
+    for k1, v1 in ikey1.items():
+        if k1 in ikey2 and v1 == ikey2[k1]:
+            result['= ' + k1] = check_value(v1)
+        if k1 in ikey2 and v1 != ikey2[k1] and not children(v1, ikey2[k1]):
+            result['- ' + k1] = check_value(v1)
+            result['+ ' + k1] = check_value(ikey2[k1])
+        if k1 not in ikey2:
+            result['- ' + k1] = check_value(v1)
+        if k1 in ikey2 and v1 != ikey2[k1] and children(v1, ikey2[k1]):
+            result['= ' + k1] = diff_equals(v1, ikey2[k1])
+    for k2, v2 in ikey2.items():
+        if k2 not in ikey1:
+            result['+ ' + k2] = check_value(v2)
+    return result
+
+
+def item_equals(item):
     result = {}
     for key, value in item.items():
-        if type(value) is dict and key[0] == '?':
-            result[key] = item_question(value)
+        if type(value) is dict and key[0] == '=':
+            result[key] = item_equals(value)
         elif type(value) is not dict:
-            result['? ' + key] = value
+            result['= ' + key] = value
         else:
-            result['? ' + key] = item_question(value)
+            result['= ' + key] = item_equals(value)
     return result
 
 
-def finish_dict(dict1, dict2):
-    res_lvl1 = {}
-    for k, v in dict1.items():
-        if k in dict2:
-            res_lvl1['= ' + k] = check_value(dict1[k], dict2[k])
+def diff_lvl1(item1, item2):
+    result = {}
+    for k1, v1 in item1.items():
+        if k1 in item2:
+            result['= ' + k1] = diff_equals(v1, item2[k1])
         else:
-            res_lvl1['- ' + k] = item_question(dict1[k])
-    for k2, v2 in dict2.items():
-        if k2 not in dict1:
-            res_lvl1['+ ' + k2] = item_question(v2)
-    return res_lvl1
+            result['- ' + k1] = item_equals(v1)
+    for k2, v2 in item2.items():
+        if k2 not in item1:
+            result['+ ' + k2] = item_equals(v2)
+    return result
 
 
 def data_from_stylish(item1, item2):
     for k, v in item1.items():
         if type(k) is not dict and type(v) is not dict:
-            return check_value(item1, item2)
+            return diff_equals(item1, item2)
         else:
-            res_dict = finish_dict(item1, item2)
+            res_dict = diff_lvl1(item1, item2)
         return res_dict
