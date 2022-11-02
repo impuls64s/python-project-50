@@ -23,6 +23,8 @@ def format_keys(item):
 def check_value(value):
     if type(value) is dict:
         return '[complex value]'
+    elif type(value) is int:
+        return value
     else:
         return "'" + str(value) + "'"
 
