@@ -1,8 +1,8 @@
 from gendiff.formater.stylish import stylish
 
 
-text = {'= common': {'= setting1': 'Value 1', '- setting2': 200, '- setting3': True, '+ setting3': None, '= setting6': {'= key': 'value', '= doge': {'- wow': '', '+ wow': 'so much'}, '+ ops': 'vops'}, '+ follow': False, '+ setting4': 'blah blah', '+ setting5': {'= key5': 'value5'}}, '= group1': {'- baz': 'bas', '+ baz': 'bars', '= foo': 'bar', '- nest': {'= key': 'value'}, '+ nest': 'str'}, '- group2': {'= abc': 12345, '= deep': {'= id': 45}}, '+ group3': {'= deep': {'= id': {'= number': 45}}, '= fee': 100500}}
-text2 = {'= host': 'hexlet.io', '+ verbose': True, '- timeout': 50, '+ timeout': 20, '- proxy': '123.234.53.22', '- follow': False}
+text = {'= common': {'+ follow': False, '= setting1': 'Value 1', '- setting2': 200, '! setting3': [True, None], '+ setting4': 'blah blah', '+ setting5': {'= key5': 'value5'}, '= setting6': {'= doge': {'! wow': ['', 'so much']}, '= key': 'value', '+ ops': 'vops'}}, '= group1': {'! baz': ['bas', 'bars'], '= foo': 'bar', '! nest': [{'= key': 'value'}, 'str']}, '- group2': {'= abc': 12345, '= deep': {'= id': 45}}, '+ group3': {'= deep': {'= id': {'= number': 45}}, '= fee': 100500}}
+text2 = {'- follow': False, '= host': 'hexlet.io', '- proxy': '123.234.53.22', '! timeout': [50, 20], '+ verbose': True}
 
 
 def test_stylish():

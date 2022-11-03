@@ -1,22 +1,28 @@
-def formater(item):
+def format_stylish(item):
     result = {}
-    if type(item) is dict:
-        result_sort = dict(sorted(item.items(), key=lambda x: x[0][2:]))
-        for k, v in result_sort.items():
-            if type(v) is not dict:
-                result[k] = v
-            elif type(v) is dict:
-                result[k] = formater(v)
-    else:
-        return item
+    for k, v in item.items():
+        if k[0] != '=' and k[0] != '!' or \
+           k[0] == '=' and not isinstance(v, dict):
+            result[k] = v
+        elif k[0] == '!':
+            result['- ' + k[2:]] = v[0]
+            result['+ ' + k[2:]] = v[1]
+        else:
+            result[k] = func_re(v)
     return result
 
 
-def format_keys(item):
-    res = {}
+def func_re(item):
+    result = {}
     for k, v in item.items():
-        res[k] = formater(v)
-    return dict(sorted(res.items(), key=lambda x: x[0][2:]))
+        if k[0] == '!':
+            result['- ' + k[2:]] = v[0]
+            result['+ ' + k[2:]] = v[1]
+        elif k[0] == '=' and isinstance(v, dict):
+            result[k] = func_re(v)
+        else:
+            result[k] = v
+    return result
 
 
 def format_str(item, char=' ', count=2, depth=1):
@@ -24,7 +30,7 @@ def format_str(item, char=' ', count=2, depth=1):
     if type(item) is dict:
         for k, v in item.items():
             if type(v) is dict:
-                value = (value + f'\n{char * (depth * count)}{k}: '
+                value = value + (f'\n{char * (depth * count)}{k}: '
                                  f'{format_str(v, char, count, depth+2)}')
             elif type(v) is not dict:
                 value = value + f'\n{char * depth * count}{k}: {v}'
@@ -34,9 +40,8 @@ def format_str(item, char=' ', count=2, depth=1):
 
 
 def stylish(text):
-    sort_dict = format_keys(text)
-    dict_str = format_str(sort_dict)
+    fstylish = format_stylish(text)
+    dict_str = format_str(fstylish)
     result = (dict_str.replace('False', 'false').replace('None', 'null')
-                      .replace('True', 'true').replace('=', ' ')
-                      .replace('?', ' '))
+                      .replace('True', 'true').replace('=', ' '))
     return result

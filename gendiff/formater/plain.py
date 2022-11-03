@@ -1,25 +1,3 @@
-def formater(item):
-    result = {}
-    if type(item) is dict:
-        for k, v in item.items():
-            if type(v) is not dict:
-                result[k] = v
-                result = dict(sorted(result.items(), key=lambda x: x[0][2:]))
-            elif type(v) is dict:
-                result[k] = dict(sorted(v.items(), key=lambda x: x[0][2:]))
-                formater(v)
-    else:
-        return item
-    return result
-
-
-def format_keys(item):
-    res = {}
-    for k, v in item.items():
-        res[k] = formater(v)
-    return dict(sorted(res.items(), key=lambda x: x[0][2:]))
-
-
 def check_value(value):
     if type(value) is dict:
         return '[complex value]'
@@ -35,8 +13,8 @@ def res_plain(item, depth=''):
         if key[0] == '-':
             result += f"Property '{depth}{key[2:]}' was removed\n"
         if key[0] == '+':
-            result += (f"Property '{depth}{key[2:]}' was added with value:"
-                       f" {check_value(value)}\n")
+            result += (f"Property '{depth}{key[2:]}' "
+                       f"was added with value: {check_value(value)}\n")
         if key[0] == '!':
             result += (f"Property '{depth}{key[2:]}' was updated."
                        f" From {check_value(value[0])}"
@@ -64,7 +42,6 @@ def replace_char(text):
 
 
 def plain(item):
-    sort_item = format_keys(item)
-    res1 = res_plain(sort_item)
+    res1 = res_plain(item)
     rep_char = replace_char(res1)
     return rep_char

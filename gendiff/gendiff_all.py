@@ -21,8 +21,7 @@ def diff_equals(ikey1, ikey2):
         if k1 in ikey2 and v1 == ikey2[k1]:
             result['= ' + k1] = check_value(v1)
         if k1 in ikey2 and v1 != ikey2[k1] and not children(v1, ikey2[k1]):
-            result['- ' + k1] = check_value(v1)
-            result['+ ' + k1] = check_value(ikey2[k1])
+            result['! ' + k1] = [check_value(v1), check_value(ikey2[k1])]
         if k1 not in ikey2:
             result['- ' + k1] = check_value(v1)
         if k1 in ikey2 and v1 != ikey2[k1] and children(v1, ikey2[k1]):
@@ -58,10 +57,32 @@ def diff_lvl1(item1, item2):
     return result
 
 
-def data_from_stylish(item1, item2):
+def formater(item):
+    result = {}
+    if type(item) is dict:
+        result_sort = dict(sorted(item.items(), key=lambda x: x[0][2:]))
+        for k, v in result_sort.items():
+            if type(v) is not dict:
+                result[k] = v
+            elif type(v) is dict:
+                result[k] = formater(v)
+    else:
+        return item
+    return result
+
+
+def format_keys(item):
+    res = {}
+    for k, v in item.items():
+        res[k] = formater(v)
+    return dict(sorted(res.items(), key=lambda x: x[0][2:]))
+
+
+def data_from_gendiff(item1, item2):
     for k, v in item1.items():
         if type(k) is not dict and type(v) is not dict:
-            return diff_equals(item1, item2)
+            res_dict = diff_equals(item1, item2)
+            return format_keys(res_dict)
         else:
             res_dict = diff_lvl1(item1, item2)
-        return res_dict
+        return format_keys(res_dict)
