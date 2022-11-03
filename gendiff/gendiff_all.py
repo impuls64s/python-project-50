@@ -60,8 +60,8 @@ def diff_lvl1(item1, item2):
 def formater(item):
     result = {}
     if type(item) is dict:
-        result_sort = dict(sorted(item.items(), key=lambda x: x[0][2:]))
-        for k, v in result_sort.items():
+        result_sort = sorted(item.items(), key=lambda x: x[0][2:])
+        for k, v in dict(result_sort).items():
             if type(v) is not dict:
                 result[k] = v
             elif type(v) is dict:
