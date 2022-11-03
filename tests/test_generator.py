@@ -5,7 +5,6 @@ def test_generate_diff_stylish():
     result1 = generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file2.json')
     file_answer1 = open("tests/fixtures/hexlet_answer_stylish.txt", "r").read()
     assert result1 == file_answer1
-    
     result3 = generate_diff('tests/fixtures/json-file1.json', 'tests/fixtures/json-file2.json')
     file_answer3 = open("tests/fixtures/hexlet_answer2_stylish.txt", "r").read()
     assert result3 == file_answer3
